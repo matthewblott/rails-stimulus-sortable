@@ -1,0 +1,27 @@
+<%= form_with(model: task) do |form| %>
+  <% if task.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <ul>
+        <% task.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div data-controller="character-counter">
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name, data: { character_counter_target: 'input'} %> <strong data-character-counter-target="counter"></strong>
+  </div>
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <% if task.new_record? %>
+      <%= form.select :status, options_for_select(Task.statuses.map {|k, v| [k.humanize.capitalize, Task.statuses.key(v)]}), include_blank: true %>
+    <% else %>
+      <%= form.select :status, options_for_select(Task.statuses.map {|k, v| [k.humanize.capitalize, Task.statuses.key(v)]}, task.status) %>
+    <% end %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
