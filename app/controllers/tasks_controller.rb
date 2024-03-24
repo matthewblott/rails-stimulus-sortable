@@ -15,6 +15,9 @@ class TasksController < ApplicationController
   def edit
   end
 
+  def sort
+  end
+
   def create
     @task = Task.new(task_params)
 
@@ -22,6 +25,18 @@ class TasksController < ApplicationController
       redirect_to(@task, notice: "Task was successfully created.")
     else
       render(:new, status: :unprocessable_entity)
+    end
+  end
+
+  def status
+    @task = Task.find(params[:id])
+    status = params[:task][:status]
+    @task.status = status.to_i
+
+    if @task.save
+      redirect_to(@task, notice: "Task was successfully updated.", status: :see_other)
+    else
+      render(:edit, status: :unprocessable_entity)
     end
   end
 
@@ -44,6 +59,8 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :status)
+    # params.require(:task).permit(:name, :status)
+    params.require(:task).permit(:status)
   end
+
 end

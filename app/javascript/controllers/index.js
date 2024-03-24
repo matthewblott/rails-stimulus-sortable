@@ -12,3 +12,6 @@ eagerLoadControllersFrom("controllers", application)
 
 import CharacterCounter from 'stimulus-character-counter'
 application.register('character-counter', CharacterCounter)
+
+import Sortable from 'stimulus-sortable'
+application.register('sortable', Sortable)
