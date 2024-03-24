@@ -32,12 +32,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     status = params[:task][:status]
     @task.status = status.to_i
-
-    if @task.save
-      redirect_to(@task, notice: "Task was successfully updated.", status: :see_other)
-    else
-      render(:edit, status: :unprocessable_entity)
-    end
+    @task.save
   end
 
   def update
@@ -59,8 +54,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    # params.require(:task).permit(:name, :status)
-    params.require(:task).permit(:status)
+    params.require(:task).permit(:name, :status)
   end
 
 end
