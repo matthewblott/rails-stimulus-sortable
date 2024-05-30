@@ -13,5 +13,5 @@ gem "redis", ">= 4.0.1"
 gem "requestjs-rails", "~> 0.0.11"
 
 group :development, :test do
-  gem "debug", platforms: %i[mri windows]
+  gem "debug", platforms: %i[mri]
 end
